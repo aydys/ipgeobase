@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "test_helper"
-require_relative "../lib/ipgeobase"
+require_relative 'test_helper'
+require_relative '../lib/ipgeobase'
 
 class IpgeobaseTest < Minitest::Test
   def setup
-    stub_request(:get, "https://ip-api.com/xml/8.8.8.8")
+    stub_request(:get, 'https://ip-api.com/xml/8.8.8.8')
       .to_return(status: 200, body: '<query>'\
         '<country>United States</country>'\
         '<countryCode>US</countryCode>'\
@@ -20,7 +20,7 @@ class IpgeobaseTest < Minitest::Test
     assert(@ip_meta.city == 'Ashburn')
     assert(@ip_meta.country == 'United States')
     assert(@ip_meta.countryCode == 'US')
-    assert(@ip_meta.lat == 39.03)
-    assert(@ip_meta.lon == -77.5)
+    assert(@ip_meta.lat * 100 == 3903)
+    assert(@ip_meta.lon * 10 == -775)
   end
 end
