@@ -12,22 +12,20 @@ module Ipgeobase
 
   # the class create an object for the 'lookup' method result
   class MetaData
-    attr_reader :city, :country, :countryCode, :lat, :lon # rubocop:disable Naming/MethodName
+    include HappyMapper
 
-    def initialize(parsed)
-      @city = parsed.city
-      @country = parsed.country
-      @countryCode = parsed.country_code  # rubocop:disable Naming/VariableName
-      @lat = parsed.lat.to_f
-      @lon = parsed.lon.to_f
-    end
+    tag 'query'
+    element :city, String
+    element :country, String
+    element :countryCode, String, tag: 'countryCode'
+    element :lat, Float
+    element :lon, Float
   end
 
   def lookup(ip)
     uri = Addressable::URI.parse("https://ip-api.com/xml/#{ip}")
     res = Net::HTTP.get_response(uri.normalize)
-    parsed = HappyMapper.parse(res.body)
-    MetaData.new(parsed)
+    MetaData.parse(res.body, single: true)
   end
   module_function :lookup
 end
