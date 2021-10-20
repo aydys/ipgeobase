@@ -5,14 +5,9 @@ require_relative '../lib/ipgeobase'
 
 class IpgeobaseTest < Minitest::Test
   def setup
+    fixture = File.read(File.expand_path('fixture.xml', __dir__))
     stub_request(:get, 'https://ip-api.com/xml/8.8.8.8')
-      .to_return(status: 200, body: '<query>'\
-        '<country>United States</country>'\
-        '<countryCode>US</countryCode>'\
-        '<city>Ashburn</city>'\
-        '<lat>39.03</lat>'\
-        '<lon>-77.5</lon>'\
-    '</query>')
+      .to_return(status: 200, body: fixture)
     @ip_meta = Ipgeobase.lookup('8.8.8.8')
   end
 
