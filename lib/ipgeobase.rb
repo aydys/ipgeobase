@@ -13,7 +13,7 @@ module Ipgeobase
   def lookup(ip)
     uri = Addressable::URI.parse("https://ip-api.com/xml/#{ip}")
     res = Net::HTTP.get_response(uri.normalize)
-    MetaData.parse(res.body, single: true)
+    MetaData.parse(res.body, single: true).freeze
   end
   module_function :lookup
 end
