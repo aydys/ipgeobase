@@ -6,7 +6,7 @@ require 'happymapper'
 module Ipgeobase
   class MetaData
     include HappyMapper
-  
+
     tag 'query'
     element :city, String
     element :country, String
