@@ -3,7 +3,7 @@
 require 'addressable/uri'
 require 'net/http'
 require_relative 'ipgeobase/version'
-require_relative 'meta_data'
+require_relative 'ipgeobase/meta_data'
 
 # main module
 module Ipgeobase
